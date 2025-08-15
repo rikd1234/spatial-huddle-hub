@@ -2,41 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Spatial Collaboration Platform Design System */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core Background */
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Cards & Surfaces */
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --glass: 240 10% 3.9%;
+    --glass-border: 240 3.7% 15.9%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Surfaces */
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Brand Colors */
+    --primary: 270 91% 65%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 270 100% 80%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 197 92% 61%;
+    --accent-foreground: 0 0% 98%;
+    --accent-glow: 197 100% 80%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Interactive States */
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 98%;
 
-    --radius: 0.5rem;
+    --warning: 48 96% 53%;
+    --warning-foreground: 0 0% 98%;
+
+    /* Borders & Inputs */
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 270 91% 65%;
+
+    /* Map Colors */
+    --zone-meeting: 270 91% 65%;
+    --zone-social: 197 92% 61%;
+    --zone-work: 142 76% 36%;
+    --zone-private: 0 84.2% 60.2%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(270 91% 65%) 0%, hsl(197 92% 61%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(240 3.7% 15.9%) 0%, hsl(240 10% 3.9%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(270 91% 65% / 0.1) 0%, hsl(197 92% 61% / 0.1) 100%);
+    --gradient-glass: linear-gradient(135deg, hsl(240 10% 3.9% / 0.7) 0%, hsl(240 3.7% 15.9% / 0.3) 100%);
+
+    /* Shadows */
+    --shadow-primary: 0 10px 30px hsl(270 91% 65% / 0.3);
+    --shadow-accent: 0 10px 30px hsl(197 92% 61% / 0.3);
+    --shadow-glass: 0 8px 32px hsl(0 0% 0% / 0.4);
+    --shadow-elevation: 0 4px 16px hsl(0 0% 0% / 0.2);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    --radius: 1rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +136,110 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+
+  /* Glass morphism effects */
+  .glass {
+    background: var(--gradient-glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--glass-border));
+    box-shadow: var(--shadow-glass);
+  }
+
+  /* Custom animations */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--accent));
+  }
+}
+
+@layer components {
+  /* Avatar styles */
+  .avatar-glow {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.5);
+  }
+
+  /* Zone styles */
+  .zone-meeting {
+    background: hsl(var(--zone-meeting) / 0.1);
+    border: 2px solid hsl(var(--zone-meeting) / 0.3);
+  }
+
+  .zone-social {
+    background: hsl(var(--zone-social) / 0.1);
+    border: 2px solid hsl(var(--zone-social) / 0.3);
+  }
+
+  .zone-work {
+    background: hsl(var(--zone-work) / 0.1);
+    border: 2px solid hsl(var(--zone-work) / 0.3);
+  }
+
+  .zone-private {
+    background: hsl(var(--zone-private) / 0.1);
+    border: 2px solid hsl(var(--zone-private) / 0.3);
+  }
+
+  /* Interactive elements */
+  .interactive-hover {
+    transition: var(--transition-smooth);
+  }
+
+  .interactive-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-elevation);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.5);
+  }
+  to {
+    box-shadow: 0 0 30px hsl(var(--primary) / 0.8), 0 0 40px hsl(var(--accent) / 0.3);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
   }
 }
